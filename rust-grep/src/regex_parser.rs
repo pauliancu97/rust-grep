@@ -1,4 +1,4 @@
-#[derive(Copy, Clone, PartialEq, Eq, Hash)]
+#[derive(Copy, Clone, PartialEq, Eq, Hash, Debug)]
 enum CardinalChar {
     Literal(u8),
     Wildcard
@@ -22,7 +22,7 @@ impl CardinalChar {
     }
 }
 
-#[derive(Copy, Clone, PartialEq, Eq, Hash)]
+#[derive(Copy, Clone, PartialEq, Eq, Hash, Debug)]
 enum RegexChar {
     StartAnchor,
     EndAnchor,
@@ -39,29 +39,35 @@ fn get_parsed_pattern(string: &[u8]) -> Result<Vec<RegexChar>, &'static str> {
         let regex_char = match string[index] {
             b'\\' => {
                 if index + 1 >= string.len() {
-                    return Err("invalid regex");
+                    return Err("no escaped character");
                 }
                 let chr = RegexChar::Literal(string[index + 1]);
                 index += 2;
                 chr
             },
             b'^' => {
+                if index != 0 {
+                    return Err("invalid start anchor")
+                }
                 index += 1;
                 RegexChar::StartAnchor
             },
             b'$' => {
+                if index != string.len() - 1 {
+                    return Err("invalid end anchor");
+                }
                 index += 1;
                 RegexChar::EndAnchor
             },
             b'*' => {
-                let last_regex_char = result.pop().ok_or("invalid regex")?;
-                let cardinal_char = CardinalChar::get(last_regex_char).ok_or("invalid regex")?;
+                let last_regex_char = result.pop().ok_or("more or zero expected character")?;
+                let cardinal_char = CardinalChar::get(last_regex_char).ok_or("invalid for more or zero")?;
                 index += 1;
                 RegexChar::MoreOrZero(cardinal_char)
             }
             b'?' => {
-                let last_regex_char = result.pop().ok_or("invalid regex")?;
-                let cardinal_char = CardinalChar::get(last_regex_char).ok_or("invalid regex")?;
+                let last_regex_char = result.pop().ok_or("one or zero expected character")?;
+                let cardinal_char = CardinalChar::get(last_regex_char).ok_or("invalid for one or zero")?;
                 index += 1;
                 RegexChar::OneOrZero(cardinal_char)
             }
@@ -135,6 +141,7 @@ fn is_match_star(cardinal_char: CardinalChar, regex: &[RegexChar], text: &[u8]) 
     is_matched
 }
 
+#[derive(Clone, PartialEq, Eq, Hash, Debug)]
 pub struct Regex {
     pattern: Vec<RegexChar>
 }
@@ -282,5 +289,40 @@ mod tests {
         let regex = Regex::new(r"ab\\cd").unwrap();
         assert!(regex.is_match(r"ab\cd"));
         assert!(!regex.is_match("abecd"));
+    }
+
+    #[test]
+    fn no_escaped_character() {
+        assert_eq!(Err("no escaped character"), Regex::new(r"abc\"));
+    }
+
+    #[test]
+    fn more_or_zero_expected_character() {
+        assert_eq!(Err("more or zero expected character"), Regex::new(r"*sadsd"));
+    }
+
+    #[test]
+    fn invalid_for_more_or_zero() {
+        assert_eq!(Err("invalid for more or zero"), Regex::new(r"^*asdasd"));
+    }
+
+    #[test]
+    fn one_or_zero_expected_character() {
+        assert_eq!(Err("one or zero expected character"), Regex::new("?asdasd"));
+    }
+
+    #[test]
+    fn invalid_for_one_or_zero() {
+        assert_eq!(Err("invalid for one or zero"), Regex::new("^?asdasd"));
+    }
+
+    #[test]
+    fn invalid_start_anchor() {
+        assert_eq!(Err("invalid start anchor"), Regex::new("asdasd^asdasd"));
+    }
+
+    #[test]
+    fn invalid_end_anchor() {
+        assert_eq!(Err("invalid end anchor"), Regex::new("asdasd$asdasd"));
     }
 }
