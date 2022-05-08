@@ -104,7 +104,9 @@ fn is_match_here(regex: &[RegexChar], text: &[u8]) -> bool {
     }
     match regex[0] {
         RegexChar::Literal(chr) => {
-            if chr == text[0] {
+            if text.len() == 0 {
+                false
+            } else if chr == text[0] {
                 is_match_here(&regex[1..], &text[1..])
             } else {
                 false
@@ -112,10 +114,11 @@ fn is_match_here(regex: &[RegexChar], text: &[u8]) -> bool {
         },
         RegexChar::Wildcard => is_match_here(&regex[1..], &text[1..]),
         RegexChar::OneOrZero(chr) => {
-            if chr.is_match(text[0]) {
-                is_match_here(&regex[1..], &text[1..])
-            } else {
+            if text.len() == 0 {
                 is_match_here(&regex[1..], text)
+            } else {
+                (chr.is_match(text[0]) && is_match_here(&regex[1..], &text[1..])) ||
+                    is_match_here(&regex[1..], text)
             }
         }
         _ => false
@@ -147,3 +150,137 @@ impl Regex {
     }
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+    
+    #[test]
+    fn simple_regex() {
+        let regex = Regex::new("abc").unwrap();
+        assert!(regex.is_match("abc"));
+        assert!(!regex.is_match("cba"));
+    }
+
+    #[test]
+    fn simple_wildcard() {
+        let regex = Regex::new("a.c").unwrap();
+        assert!(regex.is_match("abc"));
+        assert!(regex.is_match("adc"));
+        assert!(!regex.is_match("bac"));
+    }
+
+    #[test]
+    fn simple_zero_or_more() {
+        let regex = Regex::new("abcd*").unwrap();
+        assert!(regex.is_match("abc"));
+        assert!(regex.is_match("abcd"));
+        assert!(regex.is_match("abcddd"));
+        assert!(!regex.is_match("abd"));
+    }
+
+    #[test]
+    fn more_or_zero_with_regex_after() {
+        let regex = Regex::new("abcd*efg").unwrap();
+        assert!(regex.is_match("abcefg"));
+        assert!(regex.is_match("abcdefg"));
+        assert!(regex.is_match("abcddddefg"));
+        assert!(!regex.is_match("xyzdddefg"));
+    }
+
+    #[test]
+    fn more_or_more_with_wildcard() {
+        let regex = Regex::new("ab.*").unwrap();
+        assert!(regex.is_match("ab"));
+        assert!(regex.is_match("abc"));
+        assert!(regex.is_match("abccc"));
+        assert!(regex.is_match("abcde"));
+        assert!(!regex.is_match("acerfsdsd"));
+    }
+
+    #[test]
+    fn more_or_zero_wildcard_and_regex_after() {
+        let regex = Regex::new("ab.*xyz").unwrap();
+        assert!(regex.is_match("abdefgxyz"));
+        assert!(regex.is_match("abxyz"));
+        assert!(!regex.is_match("cvxyz"));
+        assert!(!regex.is_match("abqwerty"));
+    }
+
+    #[test]
+    fn simple_one_or_zero() {
+        let regex = Regex::new("abc?").unwrap();
+        assert!(regex.is_match("ab"));
+        assert!(regex.is_match("abc"));
+        assert!(!regex.is_match("vbc"));
+    }
+
+    #[test]
+    fn one_or_zero_regex_after() {
+        let regex = Regex::new("abc?de").unwrap();
+        assert!(regex.is_match("abde"));
+        assert!(regex.is_match("abcde"));
+        assert!(!regex.is_match("abcccde"));
+    }
+
+    #[test]
+    fn one_or_zero_with_wildcard_regex() {
+        let regex = Regex::new("ab.?").unwrap();
+        assert!(regex.is_match("ab"));
+        assert!(regex.is_match("abc"));
+        assert!(regex.is_match("abf"));
+        assert!(!regex.is_match("xbc"));
+    }
+
+    #[test]
+    fn one_or_zero_with_wildcard_regex_after() {
+        let regex = Regex::new("ab.?de").unwrap();
+        assert!(regex.is_match("abde"));
+        assert!(regex.is_match("abcde"));
+        assert!(regex.is_match("abfde"));
+        assert!(!regex.is_match("abcccde"));
+    }
+
+    #[test]
+    fn match_in_middle() {
+        let regex = Regex::new("ab.?de").unwrap();
+        assert!(regex.is_match("xxxabcdexxx"));
+    }
+
+    #[test]
+    fn simple_start_anchor() {
+        let regex = Regex::new("^ab.?de").unwrap();
+        assert!(regex.is_match("abcde"));
+        assert!(regex.is_match("abcdeghjghjgh"));
+        assert!(!regex.is_match("xxxabcde"));
+    }
+
+    #[test]
+    fn simple_end_anchor() {
+        let regex = Regex::new("ab.?de$").unwrap();
+        assert!(regex.is_match("abcde"));
+        assert!(regex.is_match("xxxabcde"));
+        assert!(!regex.is_match("abcdexxx"));
+    }
+
+    #[test]
+    fn escape_character() {
+        let regex = Regex::new(r"ab\.cd").unwrap();
+        assert!(regex.is_match("ab.cd"));
+        assert!(!regex.is_match("abecd"));
+        let regex = Regex::new(r"ab\*cd").unwrap();
+        assert!(regex.is_match("ab*cd"));
+        assert!(!regex.is_match("abecd"));
+        let regex = Regex::new(r"ab\?cd").unwrap();
+        assert!(regex.is_match("ab?cd"));
+        assert!(!regex.is_match("abecd"));
+        let regex = Regex::new(r"ab\^cd").unwrap();
+        assert!(regex.is_match("ab^cd"));
+        assert!(!regex.is_match("abecd"));
+        let regex = Regex::new(r"ab\$cd").unwrap();
+        assert!(regex.is_match("ab$cd"));
+        assert!(!regex.is_match("abecd"));
+        let regex = Regex::new(r"ab\\cd").unwrap();
+        assert!(regex.is_match(r"ab\cd"));
+        assert!(!regex.is_match("abecd"));
+    }
+}
