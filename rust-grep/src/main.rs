@@ -8,7 +8,8 @@ use clap::{Command, Arg};
 
 struct Arguments {
     paths: Vec<PathBuf>,
-    pattern: Regex
+    pattern: Regex,
+    is_recursive: bool
 }
 
 fn get_arguments() -> Result<Arguments, &'static str> {
@@ -25,10 +26,15 @@ fn get_arguments() -> Result<Arguments, &'static str> {
                 .min_values(1)
                 .allow_invalid_utf8(true)
         )
+        .arg(Arg::new("recursive")
+            .short('r')
+            .takes_value(false)
+        )
         .get_matches();
     let pattern = Regex::new(matches.value_of("pattern").unwrap())?;
     let paths: Vec<_> = matches.values_of_os("files").unwrap().map(|string| PathBuf::from(string)).collect();
-    Ok(Arguments{ paths, pattern })    
+    let is_recursive = matches.is_present("recursive");
+    Ok(Arguments{ paths, pattern, is_recursive })    
 }
 
 fn search_dir(path: &Path, pattern: &Regex, is_recursive: bool) {
@@ -102,9 +108,9 @@ fn search(path: &Path, pattern: &Regex, is_recursive: bool) {
 }
 
 fn main() {
-    if let Ok(Arguments { paths, pattern }) = get_arguments() {
+    if let Ok(Arguments { paths, pattern, is_recursive }) = get_arguments() {
         for path in &paths {
-            search(path, &pattern, false);
+            search(path, &pattern, is_recursive);
         }
     }
 }

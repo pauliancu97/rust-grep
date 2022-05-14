@@ -19,7 +19,7 @@
                     "kind": "bin"
                 }
             },
-            "args": ["abcd", "file1.txt", "file2.txt", "directory"],
+            "args": ["-r", "abcd", "file1.txt", "file2.txt", "directory"],
             "cwd": "${workspaceFolder}"
         },
         {
