@@ -1,0 +1,13 @@
+/home/pauli/rust-grep/rust-grep/rust-grep/target/debug/deps/indexmap-75c999cda3f382af.rmeta: /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/lib.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/macros.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/equivalent.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/mutable_keys.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/util.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/map.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/map/core.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/map/core/raw.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/set.rs
+
+/home/pauli/rust-grep/rust-grep/rust-grep/target/debug/deps/indexmap-75c999cda3f382af.d: /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/lib.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/macros.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/equivalent.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/mutable_keys.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/util.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/map.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/map/core.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/map/core/raw.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/set.rs
+
+/home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/lib.rs:
+/home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/macros.rs:
+/home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/equivalent.rs:
+/home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/mutable_keys.rs:
+/home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/util.rs:
+/home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/map.rs:
+/home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/map/core.rs:
+/home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/map/core/raw.rs:
+/home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/indexmap-1.8.1/src/set.rs:

@@ -1,0 +1,12 @@
+/home/pauli/rust-grep/rust-grep/rust-grep/target/debug/deps/proc_macro2-fc71e48c918791ee.rmeta: /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/lib.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/marker.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/parse.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/detection.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/fallback.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/wrapper.rs
+
+/home/pauli/rust-grep/rust-grep/rust-grep/target/debug/deps/libproc_macro2-fc71e48c918791ee.rlib: /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/lib.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/marker.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/parse.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/detection.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/fallback.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/wrapper.rs
+
+/home/pauli/rust-grep/rust-grep/rust-grep/target/debug/deps/proc_macro2-fc71e48c918791ee.d: /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/lib.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/marker.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/parse.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/detection.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/fallback.rs /home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/wrapper.rs
+
+/home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/lib.rs:
+/home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/marker.rs:
+/home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/parse.rs:
+/home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/detection.rs:
+/home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/fallback.rs:
+/home/pauli/.cargo/registry/src/github.com-1ecc6299db9ec823/proc-macro2-1.0.38/src/wrapper.rs:

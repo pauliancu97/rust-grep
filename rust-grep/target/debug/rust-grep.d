@@ -1,0 +1,1 @@
+/home/pauli/rust-grep/rust-grep/rust-grep/target/debug/rust-grep: /home/pauli/rust-grep/rust-grep/rust-grep/src/main.rs /home/pauli/rust-grep/rust-grep/rust-grep/src/regex_parser.rs /home/pauli/rust-grep/rust-grep/rust-grep/src/utils.rs
